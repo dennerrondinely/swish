@@ -1,0 +1,26 @@
+{
+  "name": "babel-plugin-swish",
+  "version": "1.0.0",
+  "description": "A Babel plugin for custom syntax transformation",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src -d lib",
+    "test": "jest"
+  },
+  "keywords": [
+    "babel-plugin",
+    "swish"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.24.0",
+    "@babel/core": "^7.24.0",
+    "@babel/parser": "^7.27.2",
+    "@babel/preset-env": "^7.24.0",
+    "jest": "^29.7.0"
+  },
+  "peerDependencies": {
+    "@babel/core": "^7.0.0"
+  }
+}
