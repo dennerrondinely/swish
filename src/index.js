@@ -5,8 +5,42 @@ module.exports = function(babel) {
 
   return {
     name: "babel-plugin-swish",
+    pre(state) {
+      // Injeta a função swish no escopo global
+      const swishIdentifier = t.identifier('swish');
+      const swishFunction = t.functionDeclaration(
+        swishIdentifier,
+        [t.identifier('value'), t.identifier('cases')],
+        t.blockStatement([
+          t.returnStatement(
+            t.callExpression(
+              t.arrowFunctionExpression(
+                [],
+                t.blockStatement([
+                  t.switchStatement(
+                    t.identifier('value'),
+                    Object.entries(t.identifier('cases')).map(([key, value]) => {
+                      if (key === '_') {
+                        return t.switchCase(null, [t.returnStatement(value)]);
+                      }
+                      return t.switchCase(
+                        t.stringLiteral(key),
+                        [t.returnStatement(value)]
+                      );
+                    })
+                  )
+                ])
+              ),
+              []
+            )
+          )
+        ])
+      );
+
+      state.path.unshiftContainer('body', swishFunction);
+    },
     manipulateOptions(opts, parserOpts) {
-      parserOpts.plugins.push("jsx");
+      parserOpts.plugins.push("jsx", "typescript");
     },
     visitor: {
       CallExpression(path) {

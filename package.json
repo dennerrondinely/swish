@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "A Babel plugin for custom syntax transformation",
   "main": "lib/index.js",
+  "types": "lib/global.d.ts",
   "scripts": {
-    "build": "babel src -d lib",
-    "test": "jest"
+    "build": "babel src -d lib && cp src/global.d.ts lib/",
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "babel-plugin",
-    "swish"
+    "swish",
+    "typescript"
   ],
   "author": "",
   "license": "MIT",
@@ -18,7 +21,10 @@
     "@babel/core": "^7.24.0",
     "@babel/parser": "^7.27.2",
     "@babel/preset-env": "^7.24.0",
-    "jest": "^29.7.0"
+    "@babel/preset-typescript": "^7.27.1",
+    "@types/node": "^20.0.0",
+    "jest": "^29.7.0",
+    "typescript": "^5.0.0"
   },
   "peerDependencies": {
     "@babel/core": "^7.0.0"
